@@ -22,11 +22,19 @@ int main(int argc, char **argv){
         cout<<array[i]<<" ";
     }
 
-    //imprimir arreglo
-
-
-
-    //Inserccion
+    int temp;
+    int j;
+    //Inserccion (lo tengo como las weas)(no funciona)
+    for(int i=2;i<size_of_array;i++){
+        temp = array[i];
+        j = i-1;
+        while((j>0)&&(array[i]<array[j])){
+            array[j+1]=array[j];
+            j--;
+        }
+        array[j+1]=temp;
+    }
+    cout<<"\n\n"<<endl;
 
     //Seleccion
 
