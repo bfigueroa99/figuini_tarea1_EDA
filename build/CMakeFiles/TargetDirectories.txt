@@ -1,3 +1,0 @@
-/home/figue/Documents/Codigos/EDA/Tareas/tarea1/build/CMakeFiles/tarea1.dir
-/home/figue/Documents/Codigos/EDA/Tareas/tarea1/build/CMakeFiles/edit_cache.dir
-/home/figue/Documents/Codigos/EDA/Tareas/tarea1/build/CMakeFiles/rebuild_cache.dir
