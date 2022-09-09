@@ -4,7 +4,6 @@
 #include<time.h>
 using namespace std;
 
-
 int main(int argc, char **argv){
 
     //crear arreglo aleatorio
@@ -25,7 +24,7 @@ int main(int argc, char **argv){
     int temp;
     int j;
     //Inserccion (lo tengo como las weas)(no funciona)
-    for(int i=2;i<size_of_array;i++){
+    for(int i=0;i<size_of_array;i++){
         temp = array[i];
         j = i-1;
         while((j>0)&&(array[i]<array[j])){
