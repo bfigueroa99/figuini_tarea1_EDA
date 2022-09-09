@@ -8,7 +8,7 @@ int main(int argc, char **argv){
 
     //crear arreglo aleatorio
     int size_of_array = 10;
-    int array[size_of_array];
+    float array[size_of_array];
     srand(time(NULL));
    
     //llenar arreglo
@@ -27,11 +27,11 @@ int main(int argc, char **argv){
     for(int i=0;i<size_of_array;i++){
         temp = array[i];
         j = i-1;
-        while((j>0)&&(array[i]<array[j])){
+        while(j>=0 && array[j]>temp){
             array[j+1]=array[j];
             j--;
         }
-        array[j+1]=temp;
+        array[j+1] = temp;
     }
     cout<<"\n\n"<<endl;
 
