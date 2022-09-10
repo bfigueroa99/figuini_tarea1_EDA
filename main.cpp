@@ -14,7 +14,7 @@ int main(int argc, char **argv){
     unsigned t0, t1, t2, t3;
 
     //crear arreglo aleatorio
-    int size_of_array = 1000000; //tamaño del arreglo
+    int size_of_array = 11; //tamaño del arreglo
     float array[size_of_array];
     srand(time(NULL));
    
@@ -24,7 +24,7 @@ int main(int argc, char **argv){
     }
 
     //imprimir arreglo
-    PrintArray(array, size_of_array);
+    // PrintArray(array, size_of_array);
     
     cout << endl << endl;
 
@@ -68,7 +68,7 @@ int main(int argc, char **argv){
     /* } */
     //t3 = clock(); //termina el tiempo
     //double time = (double(t3-t2)/CLOCKS_PER_SEC);
-    //cout << "Saleccion Time: " << time << endl;
+    //cout t<< "Saleccion Time: " << time << endl;
     //------------------------------------------------------------------------------------------------------
 
     int i = 0;
@@ -77,11 +77,46 @@ int main(int argc, char **argv){
 /* WARN:(stefano): Commented functions not implemented yet*/
     /* InsertionSort(); */
     /* SelectionSort(); */
-    QuickSort(array, i, j);
+    // QuickSort(array, i, j);
     /* MergeSort(); */
 
     PrintArray(array, size_of_array);
-    //MergeSort
+    cout<<"\n";
+    //--------------------------------------------------------------------------------------
+    //MergeSort(no funciona)
+    float array_tmp[size_of_array];
+    int q = 1;
+    int p1 = 0;
+    int k = size_of_array/2;
+    int p2 = k+1;
+    while((p1<=k)&&(p2<=j)){
+        if(array[p1]<=array[p2]){
+            array_tmp[q] = array[p1];
+            p1++;
+        }
+        else{
+            array_tmp[q] = array[p2];
+            p2++;
+        }
+        q++;
+    }
+    while(p1<=k){
+        array_tmp[q] = array[p1];
+        p1++;
+        q++;
+    }
+    while(p2<=j){
+        array_tmp[q] = array[p2];
+        p2++;
+        q++;
+    }   
+    for(int i=0;i<=size_of_array;i++){
+        array[i]=array_tmp[i]; //entre que numeros quiere que varien
+    }
+
+    //---------------------------------------------------------------------------------------
+    cout<<"\n";
+    PrintArray(array, size_of_array);
 
     return 0;
 }
