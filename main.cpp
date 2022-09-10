@@ -2,6 +2,7 @@
 #include<iostream>
 #include<stdlib.h>
 #include<time.h>
+#include<ctime> 
 using namespace std;
 
 int split_qs(int i, int j, float* array);
@@ -126,3 +127,7 @@ void QuickSort(float* array, int i, int j)
         QuickSort(array, k + 1, j);
     }
 }
+
+
+// Mergesort
+
