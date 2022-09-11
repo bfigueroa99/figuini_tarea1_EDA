@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include<stdlib.h>
 #include<time.h>
@@ -9,12 +8,13 @@ void QuickSort(float* array, int i, int j);
 void PrintArray(float* array, int size);
 void InsertionSort(float* array, int size);
 void SelectionSort(float* array, int size_of_array);
-void MergeSort(float* array, int size);
+void MergeSort(float* array, int start, int end);
+void merge(float* array, int p, int q, int r);
 
 int main(int argc, char **argv){
 
     //variables para medir el tiempo
-    unsigned t0, t1, t2, t3;
+    // unsigned t0, t1, t2, t3;
 
     //crear arreglo aleatorio
     int size_of_array = 100; //tamaño del arreglo
@@ -27,7 +27,7 @@ int main(int argc, char **argv){
     }
 
     //imprimir arreglo
-    /* PrintArray(array, size_of_array); */
+    PrintArray(array, size_of_array);
     
     cout << endl << endl;
 
@@ -41,10 +41,10 @@ int main(int argc, char **argv){
     /* InsertionSort(array, size_of_array); */
     /* SelectionSort(array, size_of_array); */
     /* QuickSort(array, i, j); */
-    MergeSort(array, size_of_array);
-    cout << "Time taken: " << ((double)(clock() - start) / CLOCKS_PER_SEC);
+    MergeSort(array,0,j-1);
+    // cout << "Time taken: " << ((double)(clock() - start) / CLOCKS_PER_SEC);
     
-    /* PrintArray(array, size_of_array); */
+    PrintArray(array, size_of_array);
     
     return 0;
 }
@@ -88,44 +88,59 @@ void SelectionSort(float* array, int size_of_array)
     }
 }
 
-void MergeSort(float* array, int size)
-{
-    float array_tmp[size];
-    int q = 1;
-    int p1 = 0;
-    int k = size/2;
-    int p2 = k+1;
-    int j = size;
-    for(int i = 0; i < size; i++)
-    {
-        array_tmp[i] = 0;
-    }
-    cout << sizeof(array_tmp) << endl;
-    while((p1<=k)&&(p2<=j)){
-        if(array[p1]<=array[p2]){
-            array_tmp[q] = array[p1];
-            p1++;
+void Merge(float* array, int p, int q, int r) {
+  
+    int n1 = q - p + 1; //tamaño del subarray de la izquierda
+    int n2 = r - q; //tamaño del subarray de la derecha
+
+    int Left[n1], Right[n2];
+
+    //guardar valores del array en subarrays
+    for (int i = 0; i < n1; i++)
+        Left[i] = array[p + i]; 
+    for (int j = 0; j < n2; j++)
+        Right[j] = array[q + 1 + j];
+
+    int i, j, k;
+    i = 0; //indice del subarray izquierdo
+    j = 0; //indice del subarray derecho
+    k = p;
+
+    while (i < n1 && j < n2) {
+        if (Left[i] <= Right[j]) {
+            array[k] = Left[i];
+            i++;
+            } 
+        else {
+            array[k] = Right[j];
+            j++;
+            }
+        k++;
         }
-        else{
-            array_tmp[q] = array[p2];
-            p2++;
+
+    while (i < n1) {
+        array[k] = Left[i];
+        i++;
+        k++;
         }
-        q++;
+
+    while (j < n2) {
+        array[k] = Right[j];
+        j++;
+        k++;
+        }
     }
-    while(p1<=k){
-        array_tmp[q] = array[p1];
-        p1++;
-        q++;
+
+void MergeSort(float* array, int start, int end) {
+    if (start < end) {
+        int m = start + (end - start) / 2; // en donde corto
+
+        MergeSort(array, start, m); //el array de la izquierda
+        MergeSort(array, m + 1, end); //el array de la derecha
+
+        Merge(array, start, m, end);
+        }
     }
-    while(p2<=j){
-        array_tmp[q] = array[p2];
-        p2++;
-        q++;
-    }   
-    for(int i=0;i<=size;i++){
-        array[i]=array_tmp[i]; //entre que numeros quiere que varien
-    }
-}
 
 /* Split for QuickSort */
 int split_qs(int i, int j, float* array)
@@ -171,5 +186,3 @@ void QuickSort(float* array, int i, int j)
         QuickSort(array, k + 1, j);
     }
 }
-
-
