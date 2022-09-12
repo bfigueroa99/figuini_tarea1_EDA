@@ -36,9 +36,10 @@ void TimeTest(int size)
     for(int j = 0; j < 3; j++)
     {
         for(int i=0;i<=size;i++){
-            array[i]=rand() / (RAND_MAX +1.0f); //entre que numeros quiere que varien
+            array[i]=rand() / (RAND_MAX + 1.0f); //entre que numeros quiere que varien
         }
 
+        /* PrintArray(array, size); */
         TestResults[0] += InsertTime(array, size);
         TestResults[1] += SelectTime(array, size);
         TestResults[2] += QuickTime(array, size);
@@ -53,18 +54,28 @@ void TimeTest(int size)
 
 double InsertTime(float* array, int size)
 {
+    float tmp[size];
+    for(int ar = 0; ar < size; ar++)
+    {
+        tmp[ar] = array[ar];
+    }
     
     clock_t Insertstart = clock();
-    InsertionSort(array, size);
+    InsertionSort(tmp, size);
 
     return (((double)(clock() - Insertstart) / CLOCKS_PER_SEC) * 1000);
 }
 
 double SelectTime(float* array, int size)
 {
+    float tmp[size];
+    for(int ar = 0; ar < size; ar++)
+    {
+        tmp[ar] = array[ar];
+    }
     
     clock_t Selectstart = clock();
-    SelectionSort(array, size);
+    SelectionSort(tmp, size);
     return (((double)(clock() - Selectstart) / CLOCKS_PER_SEC) * 1000);
 }
 
@@ -76,8 +87,10 @@ double QuickTime(float* array, int size)
         tmp[ar] = array[ar];
     }
 
+    PrintArray(tmp, size);
     clock_t Quickstart = clock();
     QuickSort(tmp, 0, size - 1);
+    PrintArray(tmp, size);
     return (((double)(clock() - Quickstart) / CLOCKS_PER_SEC) * 1000);
 }
 
@@ -99,6 +112,7 @@ void PrintArray(float* array, int size)
     for(int i = 0; i < size; i++){
         cout<<array[i]<<" ";
     }
+    cout << endl << endl;
 }
 
 void InsertionSort(float* array, int size)
