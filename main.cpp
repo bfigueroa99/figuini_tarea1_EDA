@@ -11,42 +11,87 @@ void SelectionSort(float* array, int size_of_array);
 void MergeSort(float* array, int start, int end);
 void merge(float* array, int p, int q, int r);
 
+void TimeTest(int size);
+
+double InsertTime(float* array, int size);
+double SelectTime(float* array, int size);
+double QuickTime(float* array, int size);
+double MergeTime(float* array, int size);
+
 int main(int argc, char **argv){
 
-    //variables para medir el tiempo
-    // unsigned t0, t1, t2, t3;
+    int size_of_array = 10000; //tamaño del arreglo
+   
+    TimeTest(size_of_array);
+    return 0;
+}
 
-    //crear arreglo aleatorio
-    int size_of_array = 1000000; //tamaño del arreglo
-    float array[size_of_array];
+void TimeTest(int size)
+{
+    double TestResults[4] = {0.0, 0.0, 0.0, 0.0};
+    
+    float array[size];
     srand(time(NULL));
    
-    //llenar arreglo
-    for(int i=0;i<=size_of_array;i++){
-        array[i]=rand() / (RAND_MAX +1.0f); //entre que numeros quiere que varien
+    for(int j = 0; j < 3; j++)
+    {
+        for(int i=0;i<=size;i++){
+            array[i]=rand() / (RAND_MAX +1.0f); //entre que numeros quiere que varien
+        }
+
+        TestResults[0] += InsertTime(array, size);
+        TestResults[1] += SelectTime(array, size);
+        TestResults[2] += QuickTime(array, size);
+        TestResults[3] += MergeTime(array, size);
     }
 
-    //imprimir arreglo
-    PrintArray(array, size_of_array);
-    
-    cout << endl << endl;
+    cout << "InsertSort: " << TestResults[0] / 3 << endl;
+    cout << "SelectSort: " << TestResults[1] / 3 << endl;
+    cout << "QuickSort: " << TestResults[2] / 3 << endl;
+    cout << "MergeSort: " << TestResults[3] / 3 << endl;
+}
 
-    //---------------------------------------------------------------------------------------------------
+double InsertTime(float* array, int size)
+{
+    
+    clock_t Insertstart = clock();
+    InsertionSort(array, size);
 
-    int i = 0;
-    int j = size_of_array;
-    
-    clock_t start = clock();
-    /* InsertionSort(array, size_of_array); */
-    /* SelectionSort(array, size_of_array); */
-    /* QuickSort(array, i, j); */
-    /* MergeSort(array,0,j-1); */
+    return (((double)(clock() - Insertstart) / CLOCKS_PER_SEC) * 1000);
+}
 
-    PrintArray(array, size_of_array);
-    cout << "Time taken: " << (((double)(clock() - start) / CLOCKS_PER_SEC) * 1000) << " milliseconds.\n\n";
+double SelectTime(float* array, int size)
+{
     
-    
-    return 0;
+    clock_t Selectstart = clock();
+    SelectionSort(array, size);
+    return (((double)(clock() - Selectstart) / CLOCKS_PER_SEC) * 1000);
+}
+
+double QuickTime(float* array, int size)
+{
+    float tmp[size];
+    for(int ar = 0; ar < size; ar++)
+    {
+        tmp[ar] = array[ar];
+    }
+
+    clock_t Quickstart = clock();
+    QuickSort(tmp, 0, size - 1);
+    return (((double)(clock() - Quickstart) / CLOCKS_PER_SEC) * 1000);
+}
+
+double MergeTime(float* array, int size)
+{
+    float tmp[size];
+    for(int ar = 0; ar < size; ar++)
+    {
+        tmp[ar] = array[ar];
+    }
+
+    clock_t Mergestart = clock();
+    MergeSort(tmp, 0, size - 1);
+    return (((double)(clock() - Mergestart) / CLOCKS_PER_SEC) * 1000);
 }
 
 void PrintArray(float* array, int size)
