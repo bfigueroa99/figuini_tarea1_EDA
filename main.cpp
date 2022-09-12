@@ -17,13 +17,13 @@ int main(int argc, char **argv){
     // unsigned t0, t1, t2, t3;
 
     //crear arreglo aleatorio
-    int size_of_array = 100; //tamaño del arreglo
+    int size_of_array = 1000000; //tamaño del arreglo
     float array[size_of_array];
     srand(time(NULL));
    
     //llenar arreglo
     for(int i=0;i<=size_of_array;i++){
-        array[i]=rand()%100; //entre que numeros quiere que varien
+        array[i]=rand() / (RAND_MAX +1.0f); //entre que numeros quiere que varien
     }
 
     //imprimir arreglo
@@ -36,15 +36,15 @@ int main(int argc, char **argv){
     int i = 0;
     int j = size_of_array;
     
-/* WARN:(stefano): Commented functions not implemented yet*/
     clock_t start = clock();
     /* InsertionSort(array, size_of_array); */
     /* SelectionSort(array, size_of_array); */
     /* QuickSort(array, i, j); */
-    MergeSort(array,0,j-1);
-    // cout << "Time taken: " << ((double)(clock() - start) / CLOCKS_PER_SEC);
-    
+    /* MergeSort(array,0,j-1); */
+
     PrintArray(array, size_of_array);
+    cout << "Time taken: " << (((double)(clock() - start) / CLOCKS_PER_SEC) * 1000) << " milliseconds.\n\n";
+    
     
     return 0;
 }
@@ -58,7 +58,7 @@ void PrintArray(float* array, int size)
 
 void InsertionSort(float* array, int size)
 {
-    int temp;
+    float temp;
     int j;
     for(int i=0;i<size;i++){
         temp = array[i];
@@ -73,7 +73,7 @@ void InsertionSort(float* array, int size)
 
 void SelectionSort(float* array, int size_of_array)
 {
-    int temp=0;
+    float temp = 0.0f;
     int small;
     for(int i=0;i<size_of_array;i++){
         small = i;
@@ -93,7 +93,7 @@ void Merge(float* array, int p, int q, int r) {
     int n1 = q - p + 1; //tamaño del subarray de la izquierda
     int n2 = r - q; //tamaño del subarray de la derecha
 
-    int Left[n1], Right[n2];
+    float Left[n1], Right[n2];
 
     //guardar valores del array en subarrays
     for (int i = 0; i < n1; i++)
@@ -146,7 +146,7 @@ void MergeSort(float* array, int start, int end) {
 int split_qs(int i, int j, float* array)
 {
     int p = rand() % (j - i) + i;
-    int tmp;
+    float tmp;
     while(i < j)
     {
         while(i < p && array[i] <= array[p])
