@@ -20,7 +20,7 @@ double MergeTime(float* array, int size);
 
 int main(int argc, char **argv){
 
-    int size_of_array = 700000; //tamaño del arreglo
+    int size_of_array = 1000000; //tamaño del arreglo
    
     TimeTest(size_of_array);
     return 0;
@@ -154,7 +154,8 @@ void Merge(float* array, int p, int q, int r) {
     int n1 = q - p + 1; //tamaño del subarray de la izquierda
     int n2 = r - q; //tamaño del subarray de la derecha
 
-    float Left[n1], Right[n2];
+    float * Left = new float[n1];
+    float * Right = new float[n2];
 
     //guardar valores del array en subarrays
     for (int i = 0; i < n1; i++)
@@ -190,6 +191,11 @@ void Merge(float* array, int p, int q, int r) {
         j++;
         k++;
         }
+
+    delete[] Right;
+    delete[] Left;
+
+    
     }
 
 void MergeSort(float* array, int start, int end) {
@@ -200,6 +206,7 @@ void MergeSort(float* array, int start, int end) {
         MergeSort(array, m + 1, end); //el array de la derecha
 
         Merge(array, start, m, end);
+
         }
     }
 
