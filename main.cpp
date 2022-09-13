@@ -9,7 +9,12 @@ void PrintArray(float* array, int size);
 void InsertionSort(float* array, int size);
 void SelectionSort(float* array, int size_of_array);
 void MergeSort(float* array, int start, int end);
-void merge(float* array, int p, int q, int r);
+void merge(float* array, int p, int q, int r);//subarreglos
+
+int get_Max(int* array, int size); //valor maximo que hay para el radixsort
+void count_for_RadixSort(int* array, int size, int digito);
+void RadixSort(int* array, int size);
+
 
 void TimeTest(int size);
 
@@ -20,7 +25,7 @@ double MergeTime(float* array, int size);
 
 int main(int argc, char **argv){
 
-    int size_of_array = 1000000; //tamaño del arreglo
+    int size_of_array = 10; //tamaño del arreglo
    
     TimeTest(size_of_array);
     return 0;
@@ -252,5 +257,52 @@ void QuickSort(float* array, int i, int j)
         int k = split_qs(i, j, array);
         QuickSort(array, i, k);
         QuickSort(array, k + 1, j);
+    }
+}
+
+// Radix Sort -> https://www.programiz.com/dsa/radix-sort
+int get_Max(int* array, int size){
+    int maximo = array[0];
+    for(int i = 1; i < size; i++){
+        if (array[i]>maximo);
+    }
+    return maximo;
+}
+
+void count_for_RadixSort(int* array, int size, int digito){
+    //n->size
+    //exp->digito
+
+    int tmp[size];
+    int count[10];//***averiguar porque esto es 10****
+
+    //rellenar el array de zeros
+    for(int i=0;i<10;i++){
+        count[i] = 0;
+    }
+
+    for(int i=0; i<size; i++){
+        count[(array[i]/digito)%10]++;//no se que hace esto todavia
+    }
+    
+    for(int i=1;i<10;i++){
+        count[i] += count[i-1];//no se que hace esto todavia
+    }
+
+    for(int i=size-1;i>=0;i--){
+        tmp[count[(array[i]/digito)%10]-1] = array[i]; //me marie
+        count[(array[i]/digito) % 10]--;
+    }
+
+    for(int i=0;i<size;i++){
+        array[i] = tmp[i];
+    }
+
+}
+
+void RadixSort(int* array, int size){
+    int maximo = get_Max(array, size);
+    for(int digito = 1; maximo/digito > 0; digito *= 10){
+        count_for_RadixSort(array, size, digito);
     }
 }
