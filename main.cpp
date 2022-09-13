@@ -20,7 +20,7 @@ double MergeTime(float* array, int size);
 
 int main(int argc, char **argv){
 
-    int size_of_array = 10000; //tamaño del arreglo
+    int size_of_array = 700000; //tamaño del arreglo
    
     TimeTest(size_of_array);
     return 0;
@@ -60,8 +60,10 @@ double InsertTime(float* array, int size)
         tmp[ar] = array[ar];
     }
     
+    /* PrintArray(tmp, size); */
     clock_t Insertstart = clock();
     InsertionSort(tmp, size);
+    /* PrintArray(tmp, size); */
 
     return (((double)(clock() - Insertstart) / CLOCKS_PER_SEC) * 1000);
 }
@@ -87,10 +89,10 @@ double QuickTime(float* array, int size)
         tmp[ar] = array[ar];
     }
 
-    PrintArray(tmp, size);
+    /* PrintArray(tmp, size); */
     clock_t Quickstart = clock();
     QuickSort(tmp, 0, size - 1);
-    PrintArray(tmp, size);
+    /* PrintArray(tmp, size); */
     return (((double)(clock() - Quickstart) / CLOCKS_PER_SEC) * 1000);
 }
 
