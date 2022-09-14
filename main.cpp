@@ -260,7 +260,7 @@ void QuickSort(float* array, int i, int j)
     }
 }
 
-// Radix Sort -> https://www.programiz.com/dsa/radix-sort
+// Radix Sort
 int get_Max(int* array, int size){
     int maximo = array[0];
     for(int i = 1; i < size; i++){
